@@ -45,7 +45,6 @@ public class StaffValidator : AbstractValidator<Staff>
     {
         // Burada özel telefon numarasý kontrolü yapabilirsiniz
         // Örneðin, regex kullanarak bir kontrol gerçekleþtirebilirsiniz
-        // Bu örnek sadece bir kontrol mekanizmasý göstermektedir, gerçek dünyada kullanmadan önce iyileþtirmeler yapmalýsýnýz.
         var regex = new Regex(@"^\d{10}$");
         return regex.IsMatch(phone);
     }
@@ -72,8 +71,7 @@ public class StaffController : ControllerBase
             return BadRequest(validationResult.Errors);
         }
 
-        // Staff oluþturma iþlemleri
-        // ...
+        
 
         return Ok("Personel baþarýyla oluþturuldu");
     }

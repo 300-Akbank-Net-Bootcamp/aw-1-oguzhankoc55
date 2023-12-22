@@ -23,21 +23,21 @@ public class Employee
 public class EmployeeValidator : AbstractValidator<Employee>
 {
     public EmployeeValidator()
-    {
+    {   //Fluennt validation tanýmlamalarý
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Ýsim boþ olamaz.")
             .Length(10, 250).WithMessage("Ýsim 10 ile 250 karakter arasýnda olmalýdýr.")
-            .WithName("Name"); // FluentValidation için isim tanýmlamasý
+            .WithName("Name"); 
 
         RuleFor(x => x.DateOfBirth)
             .NotEmpty().WithMessage("Doðum tarihi boþ olamaz.")
             .Must(BeValidBirthDate).WithMessage("Doðum tarihi geçerli deðil.")
-            .WithName("DateOfBirth"); // FluentValidation için isim tanýmlamasý
+            .WithName("DateOfBirth"); 
 
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email boþ olamaz.")
             .EmailAddress().WithMessage("Geçerli bir email adresi giriniz.")
-            .WithName("Email"); // FluentValidation için isim tanýmlamasý
+            .WithName("Email"); 
 
         RuleFor(x => x.Phone)
            .NotEmpty().WithMessage("Telefon numarasý boþ olamaz.")
@@ -53,18 +53,17 @@ public class EmployeeValidator : AbstractValidator<Employee>
     {
         // Burada özel telefon numarasý kontrolü yapabilirsiniz
         // Örneðin, regex kullanarak bir kontrol gerçekleþtirebilirsiniz
-        // Bu örnek sadece bir kontrol mekanizmasý göstermektedir, gerçek dünyada kullanmadan önce iyileþtirmeler yapmalýsýnýz.
         var regex = new Regex(@"^\d{10}$");
         return regex.IsMatch(phone);
     }
     private bool BeValidBirthDate(DateTime dateOfBirth)
-    {
+    {   //Yaþ validation kullanýlan fonksiyon
         var minAllowedBirthDate = DateTime.Today.AddYears(-65);
         return minAllowedBirthDate <= dateOfBirth;
     }
 
     private bool BeAValidHourlySalary(double hourlySalary, Employee employee)
-    {
+    {   //Saatlik ücret validation  kullanýlan fonksiyon
         var dateBeforeThirtyYears = DateTime.Today.AddYears(-30);
         var isOlderThanThirdyYears = employee.DateOfBirth <= dateBeforeThirtyYears;
 
@@ -116,8 +115,7 @@ public class EmployeeController : ControllerBase
             return BadRequest(validationResult.Errors);
         }
 
-        // Employee oluþturma iþlemleri
-        // ...
+        
 
         return Ok("Çalýþan baþarýyla oluþturuldu");
     }
